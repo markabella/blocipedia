@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-   <div class="container">
+  <div class="container">
     <ul class="nav nav-tabs">
      <li><%= link_to "Blocipedia", root_path %></li>
      <div class="pull-right user-info">
@@ -20,14 +20,12 @@
      <% end %>
      </div>
     </ul>
-   </div>
- 
- <div class="container">
+    <br>
      <% flash.each do |key, value| %>
-       <div class="flash <%= key %>"><%= value %></div>
+      <div class="flash notice"><%= value %></div>
      <% end %>
      <%= yield %>
- </div>
+   </div>
 
 </body>
 </html>

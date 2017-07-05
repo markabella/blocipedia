@@ -1,10 +1,4 @@
-# Load the Rails application.
-require File.expand_path('../application', __FILE__)
-
-# Initialize the Rails application.
-Rails.application.initialize!
-
-if Rails.env.development? || Rails.env.production?
+  if Rails.env.development? || Rails.env.production?
     ActionMailer::Base.delivery_method = :smtp
     ActionMailer::Base.smtp_settings = {
       address:        'smtp.sendgrid.net',
@@ -15,4 +9,4 @@ if Rails.env.development? || Rails.env.production?
       domain:         'heroku.com',
       enable_starttls_auto: true
     }
-end
+  end

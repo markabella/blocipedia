@@ -21,9 +21,8 @@
      </div>
     </ul>
     <br>
-     <% flash.each do |key, value| %>
-      <div class="flash notice"><%= value %></div>
-     <% end %>
+    <span class = notice><%= notice %></span>
+    <span class = alert><%= alert %></span>
      <%= yield %>
    </div>
 

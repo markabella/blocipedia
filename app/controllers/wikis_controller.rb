@@ -1,7 +1,8 @@
 class WikisController < ApplicationController
 #   before_action :require_sign_in, except: [:index, :show]
 #   before_action :authorize_user, except: [:index, :show]
-   
+    before_action :authenticate_user!, except: [:index, :show]
+    
    def index
      @wikis = Wiki.all
    end
@@ -47,7 +48,7 @@ class WikisController < ApplicationController
      @wiki = Wiki.find(params[:id])
  
      if @wiki.destroy
-       flash[:notice] = "\"#{@wiki.name}\" was deleted successfully."
+       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
        redirect_to action: :index
      else
        flash.now[:alert] = "There was an error deleting the wiki."

@@ -24,6 +24,8 @@ gem 'stripe'
 gem 'figaro', '1.0'
 gem 'redcarpet'
 gem 'puma'
+gem 'capybara'
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

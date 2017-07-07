@@ -29,15 +29,19 @@
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
+  </div><br />
 
   <div class="actions">
-    <%= f.submit "Update" %>
+     <%= f.submit "Update", class: 'btn btn-success' %>
   </div>
 <% end %>
+<br>
+<% if current_user.premium? %>
+<h4>Cancel my Premium Membership</h4>
+ <%= link_to "Cancel Premium Membership", @charge, method: :cancel, class: 'btn btn-danger', data: { confirm: 'Your Private wikis will become Public' } %>
+<% end %>
+<h4>Cancel my Account</h4>
 
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p><%= link_to "Cancel my Account", registration_path(resource_name), class: 'btn btn-danger', data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>

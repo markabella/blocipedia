@@ -50,10 +50,10 @@
  premium.save!
 
  
- # Create a member
- member = User.new(
-   #name:     'Member User',
-   email:    'member@email.com',
+ # Create a standard user
+ standard = User.new(
+   #name:     'Standard User',
+   email:    'standard@email.com',
    password: 'helloworld'
  )
  member.skip_confirmation!

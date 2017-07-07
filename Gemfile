@@ -24,8 +24,12 @@ gem 'stripe'
 gem 'figaro', '1.0'
 gem 'redcarpet'
 gem 'puma'
-gem 'capybara'
 
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'stripe-ruby-mock'
+end
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

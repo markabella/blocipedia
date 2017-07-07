@@ -56,8 +56,8 @@
    email:    'standard@email.com',
    password: 'helloworld'
  )
- member.skip_confirmation!
- member.save!
+ standard.skip_confirmation!
+ standard.save!
 
  
  puts "Seed finished"

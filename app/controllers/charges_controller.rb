@@ -11,7 +11,7 @@ class ChargesController < ApplicationController
    # Where the real magic happens
    charge = Stripe::Charge.create(
      customer: customer.id, # Note -- this is NOT the user_id in your app
-     amount: 10_00, #Amount.default
+     amount: 15_00, #Amount.default
      description: "Blocipedia Premium - #{current_user.email}",
      currency: 'usd'
    )
@@ -33,7 +33,7 @@ class ChargesController < ApplicationController
    @stripe_btn_data = {
      key: "#{ Rails.configuration.stripe[:publishable_key] }",
      description: "Blocipedia Premium - #{current_user.email}",
-     amount: 10_00 #Amount.default
+     amount: 15_00 #Amount.default
    }
  end
  
@@ -41,11 +41,9 @@ class ChargesController < ApplicationController
     #If Stripe subscription model, then use below:
     #subscription = Stripe::Subscription.retrieve({SUBSCRIPTION_ID})
     #subscription.delete
-   
     current_user.update_attribute(:role, 'standard')
-    current_user.wikis.where(private: true).update_all(private: false)
-   
-    flash[:notice] = "Standard Membership enabled: Private wikis now Public"
+    
+    flash[:notice] = "Downgraded to Standard Membership"
     redirect_to root_path
  end
 end

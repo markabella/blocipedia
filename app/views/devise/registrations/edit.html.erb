@@ -38,7 +38,7 @@
 <br>
 <% if current_user.premium? %>
 <h4>Cancel my Premium Membership</h4>
- <%= link_to "Cancel Premium Membership", @charge, method: :cancel, class: 'btn btn-danger', data: { confirm: 'Your Private wikis will become Public' } %>
+ <%= link_to "Cancel Premium Membership", charges_cancel_path, class: 'btn btn-danger', data: { confirm: 'Cancel your Premium Membership?' } %>
 <% end %>
 <h4>Cancel my Account</h4>
 

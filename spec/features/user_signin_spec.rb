@@ -9,7 +9,7 @@ require 'rails_helper'
     user.skip_confirmation!
     user.save
 
-    it "should allow a registered user to sign in and sign out" do
+    it "allows a registered user to sign in and sign out" do
       visit new_user_session_path
       fill_in "Email", :with => user.email
       fill_in "Password", :with => user.password
@@ -21,7 +21,7 @@ require 'rails_helper'
       expect(page).to have_content "You need to sign in or sign up before continuing."
     end
 
-    it "should not allow an unregistered user to sign in" do
+    it "does not allow an unregistered user to sign in" do
       visit new_user_session_path
       fill_in "Email", :with => "notarealuser@example.com"
       fill_in "Password", :with => "fakepassword"

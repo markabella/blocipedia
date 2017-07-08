@@ -1,4 +1,4 @@
- <h1><%= @wiki.title %></h1>
+ <h1><%= markdown(@wiki.title) %></h1>
  <% if @wiki.private %><h3>[PRIVATE]</h3><% end %>
 
    <%= link_to "Edit Wiki", edit_wiki_path, class: 'btn btn-success' %>
@@ -6,7 +6,7 @@
 
  <div class="row">
    <div class="col-md-8">
-     <p class="lead"><%= @wiki.body %></p>
+     <p class="lead"><%= markdown(@wiki.body) %></p>
    </div>
     <div class="col-md-4">
      <%= link_to "New Wiki", new_wiki_path(@wiki), class: 'btn btn-success' %>

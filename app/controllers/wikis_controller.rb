@@ -8,7 +8,13 @@ class WikisController < ApplicationController
    end
    
    def show
-     @wiki = Wiki.find(params[:id])
+     @wiki = Wiki.find(params[:id]) 
+     if user_is_authorized_to_view_wiki?(@wiki)
+        @wiki = Wiki.find(params[:id]) 
+     else 
+       flash[:alert] = "Unauthorized to view wiki."
+       redirect_to root_path
+     end
    end
    
    def new
@@ -17,7 +23,8 @@ class WikisController < ApplicationController
    
    def create
      @wiki = Wiki.new(wiki_params)
- 
+     @wiki.user = current_user
+
      if @wiki.save
        redirect_to @wiki, notice: "Wiki was saved successfully."
      else
@@ -32,8 +39,12 @@ class WikisController < ApplicationController
    
    def update
      @wiki = Wiki.find(params[:id])
- 
+
      @wiki.assign_attributes(wiki_params)
+
+     if @wiki.private
+         @wiki.user = current_user
+     end
  
      if @wiki.save
         flash[:notice] = "Wiki was updated."
@@ -68,4 +79,9 @@ class WikisController < ApplicationController
        redirect_to wikis_path
      end
    end
+   
+   def user_is_authorized_to_view_wiki?(wiki)
+    (wiki.private && (wiki.user == current_user)) || !wiki.private || current_user.admin?
+   end
+     
 end

@@ -43,6 +43,13 @@ class ChargesController < ApplicationController
     #subscription.delete
     current_user.update_attribute(:role, 'standard')
     
+    wikis = Wiki.all
+      wikis.each do |wiki|
+       	if wiki.user == current_user
+        		wiki.update_attribute(:private, false)
+       	end
+      end
+        
     flash[:notice] = "Downgraded to Standard Membership"
     redirect_to root_path
  end

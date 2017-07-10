@@ -2,8 +2,9 @@
  <div class="row">
    <div class="col-md-8">
 
-     <% @wikis.each do |wiki| %>
-      <% if user_is_authorized_to_view_wiki?(wiki) %>
+    <% @wikis.each do |wiki| %>
+     <% if current_user %>
+      <% if user_is_authorized_to_view_wiki?(wiki, wiki.id, current_user.email) %>
        <div class="media">
          <div class="media-body">
            <h4 class="media-heading">
@@ -17,7 +18,23 @@
        </div>
      <% end %>
     <% end %>
-   </div>
+    <% if !current_user %>
+     <% if !wiki.private %>
+     <div class="media">
+         <div class="media-body">
+           <h4 class="media-heading">
+             <%= link_to markdown(wiki.title), wiki %>  
+             <% if wiki.private %>[PRIVATE]<% end %>
+           </h4>
+           <small>
+             <%= markdown(wiki.body) %>
+           </small>
+         </div>
+       </div>
+       <% end %>
+     <% end %>
+  <% end %>
+  </div>
      
      <div class="col-md-4">
        <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>

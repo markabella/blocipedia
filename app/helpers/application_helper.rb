@@ -10,6 +10,7 @@ module ApplicationHelper
      (current_user && current_user.premium?) || current_user.admin? 
    end
    
+
    def markdown(text)
     options = {
       filter_html:     true,

@@ -4,17 +4,17 @@ class WikisController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     
    def index
-     @wikis = Wiki.all
+     @wikis = policy_scope(Wiki)
    end
    
    def show
      @wiki = Wiki.find(params[:id]) 
-     if user_is_authorized_to_view_wiki?(@wiki)
-        @wiki = Wiki.find(params[:id]) 
-     else 
-       flash[:alert] = "Unauthorized to view wiki."
-       redirect_to root_path
-     end
+#     if user_is_authorized_to_view_wiki?(@wiki)
+#        @wiki = Wiki.find(params[:id]) 
+#     else 
+#       flash[:alert] = "Unauthorized to view wiki."
+#       redirect_to root_path
+#     end
    end
    
    def new
@@ -23,7 +23,7 @@ class WikisController < ApplicationController
    
    def create
      @wiki = Wiki.new(wiki_params)
-     @wiki.user = current_user
+     @wiki.owner = current_user.email
 
      if @wiki.save
        redirect_to @wiki, notice: "Wiki was saved successfully."
@@ -35,6 +35,8 @@ class WikisController < ApplicationController
 
    def edit
      @wiki = Wiki.find(params[:id])
+     @users = User.all
+     @collaborators = Collaborator.all
    end
    
    def update
@@ -43,7 +45,7 @@ class WikisController < ApplicationController
      @wiki.assign_attributes(wiki_params)
 
      if @wiki.private
-         @wiki.user = current_user
+         @wiki.owner = current_user.email
      end
  
      if @wiki.save
@@ -73,6 +75,10 @@ class WikisController < ApplicationController
      params.require(:wiki).permit(:title, :body, :private)
    end
    
+   def user_is_authorized_to_view_wiki?(wiki)
+    (wiki.private && (wiki.owner == current_user.email)) || !wiki.private || current_user.admin?
+   end
+   
    def authorize_user
      unless current_user.admin?
        flash[:alert] = "You must be an admin to do that."
@@ -80,8 +86,4 @@ class WikisController < ApplicationController
      end
    end
    
-   def user_is_authorized_to_view_wiki?(wiki)
-    (wiki.private && (wiki.user == current_user)) || !wiki.private || current_user.admin?
-   end
-     
 end

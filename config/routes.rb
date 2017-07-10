@@ -2,7 +2,10 @@ Rails.application.routes.draw do
 
   get 'charges/cancel'
 
-  resources :wikis
+  resources :wikis do
+    resources :collaborators, only: [:new, :create, :destroy]
+  end
+  
   resources :charges, only: [:new, :create, :cancel]
 
   root 'wikis#index'

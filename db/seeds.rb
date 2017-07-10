@@ -32,7 +32,7 @@
  # Create an admin user
  admin = User.new(
   # name:     'Admin User',
-   email:    'admin@email.com',
+   email:    'admin@example.com',
    password: 'helloworld',
    role:     'admin'
  )
@@ -42,7 +42,7 @@
   # Create an premium user
  premium = User.new(
    #name:     'Admin User',
-   email:    'premium@email.com',
+   email:    'premium@example.com',
    password: 'helloworld',
    role:     'premium'
  )
@@ -53,8 +53,9 @@
  # Create a standard user
  standard = User.new(
    #name:     'Standard User',
-   email:    'standard@email.com',
-   password: 'helloworld'
+   email:    'standard@example.com',
+   password: 'helloworld',
+   role:     'standard'
  )
  standard.skip_confirmation!
  standard.save!

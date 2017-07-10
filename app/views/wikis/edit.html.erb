@@ -29,4 +29,40 @@
        <%= f.submit "Save", class: 'btn btn-success' %>
      <% end %>
    </div>
- </div>
+
+<h2>Collaborators</h2>
+<h4 class="media-heading">
+  <%= link_to @wiki.title, @wiki %>  
+  <% if @wiki.private %>[PRIVATE]<% end %>
+</h4>
+ 
+<ul>
+<% @collaborators.each do |collaborator| %>
+  <% if collaborator.wiki_id == @wiki.id %>
+  <li><%= collaborator.email %></li>
+  <%end%>
+<%end%>
+</ul>
+
+<% if user_is_authorized_to_view_wiki?(@wiki, @wiki.id, current_user.email) %>
+   <% @users.each do |user| %>
+     <div class="media">
+       <div class="media-body">
+       <% @user_collaborator = false %>
+       <%= user.email %>
+       <% @collaborators.each do |collaborator| %>
+         <% if collaborator.wiki_id == @wiki.id && collaborator.email == user.email %>
+  	        <%= link_to "Delete Collaborator", wiki_collaborator_path(wiki_id: @wiki.id, email: user.email), method: :delete, class: 'btn btn-danger' %>
+           <% @user_collaborator = true %>
+         <%end%>
+       <%end%>
+       <% if @user_collaborator == false %>
+         <%= link_to "Add Collaborator", wiki_collaborators_path(wiki_id: @wiki.id, email: user.email), method: :post, class: 'btn btn-info' %>
+       <%end%>
+         
+       </div>
+      </div>
+   <% end %>
+<%end%>
+
+ 

@@ -5,6 +5,9 @@ class Wiki < ActiveRecord::Base
   after_initialize :init_private
   
   default_scope { order('updated_at DESC') } 
+
+  extend FriendlyId
+    friendly_id :title, use: :slugged
   
   private
     

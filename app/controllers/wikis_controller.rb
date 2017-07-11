@@ -8,9 +8,9 @@ class WikisController < ApplicationController
    end
    
    def show
-     @wiki = Wiki.find(params[:id]) 
+     @wiki = Wiki.friendly.find(params[:id]) 
 #     if user_is_authorized_to_view_wiki?(@wiki)
-#        @wiki = Wiki.find(params[:id]) 
+#        @wiki = Wiki.friendly.find(params[:id]) 
 #     else 
 #       flash[:alert] = "Unauthorized to view wiki."
 #       redirect_to root_path
@@ -34,13 +34,13 @@ class WikisController < ApplicationController
    end
 
    def edit
-     @wiki = Wiki.find(params[:id])
+     @wiki = Wiki.friendly.find(params[:id])
      @users = User.all
      @collaborators = Collaborator.all
    end
    
    def update
-     @wiki = Wiki.find(params[:id])
+     @wiki = Wiki.friendly.find(params[:id])
 
      @wiki.assign_attributes(wiki_params)
 
@@ -58,7 +58,7 @@ class WikisController < ApplicationController
    end
    
    def destroy
-     @wiki = Wiki.find(params[:id])
+     @wiki = Wiki.friendly.find(params[:id])
  
      if @wiki.destroy
        flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."

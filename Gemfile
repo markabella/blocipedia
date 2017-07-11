@@ -24,6 +24,7 @@ gem 'stripe'
 gem 'figaro', '1.0'
 gem 'redcarpet'
 gem 'puma'
+gem 'friendly_id'
 
 group :test do
   gem 'capybara'
